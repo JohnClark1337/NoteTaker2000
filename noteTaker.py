@@ -2,16 +2,22 @@ import tkinter
 
 
 def saveFile():
-    print(entryBox.get(1.0))
     try:
         s = open("note1.txt", "w")
-        data = entryBox.get(1.0)
+        data = entryBox.get("1.0", "end-1c")
+        print(data)
         s.write(data)
         s.close()
     except:
         print("Unable to save data.")
 
-
+def loadFile():
+    try:
+        s = open("note1.txt", "r")
+        data = s.readline()
+        entryBox.replace("1.0", "end-1c", data)
+    except:
+        print("unable to populate entrybox")
 
 
 mainWindow = tkinter.Tk()
@@ -40,8 +46,8 @@ scrollbar = tkinter.Scrollbar(textFrame)
 entryBox = tkinter.Text(textFrame, yscrollcommand=scrollbar.set)
 lblMain = tkinter.Label(labelFrame, text="Note Taker 2000", font=("Helvetica", 32))
 btnExit = tkinter.Button(buttonFrame, text="Exit", command=mainWindow.destroy, height=sButtonHeight, width=sButtonWidth)
-btnSave = tkinter.Button(buttonFrame, text="Save", height=sButtonHeight, width=sButtonWidth, command=saveFile())
-btnLoad = tkinter.Button(buttonFrame, text="Load", height=sButtonHeight, width=sButtonWidth)
+btnSave = tkinter.Button(buttonFrame, text="Save", height=sButtonHeight, width=sButtonWidth, command=saveFile)
+btnLoad = tkinter.Button(buttonFrame, text="Load", height=sButtonHeight, width=sButtonWidth, command=loadFile)
 
 labelFrame.pack(side='top')
 textFrame.pack(side='left')
